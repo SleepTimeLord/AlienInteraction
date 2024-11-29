@@ -247,6 +247,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraPosition: {fileID: 1008505216}
+  bobFrequency: 10
+  bobAmplitude: 0.1
+  bobSmoothing: 0.1
 --- !u!4 &798515438
 Transform:
   m_ObjectHideFlags: 0
@@ -340,6 +343,7 @@ GameObject:
   - component: {fileID: 1429166261}
   - component: {fileID: 1429166260}
   - component: {fileID: 1429166259}
+  - component: {fileID: 1429166264}
   m_Layer: 0
   m_Name: PlayerObj
   m_TagString: Untagged
@@ -463,6 +467,21 @@ Transform:
   - {fileID: 1008505216}
   m_Father: {fileID: 1327401835}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1429166264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429166258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7938fba76040e44087c7839c238297d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  moveSmoothTime: 0.1
+  orientation: {fileID: 1636076665}
 --- !u!1 &1517951366
 GameObject:
   m_ObjectHideFlags: 0
