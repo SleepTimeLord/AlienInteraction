@@ -10,12 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7eb6a15105c2dbd46893d3f7c0c30153, type: 3}
-  m_Name: etet
+  m_Name: NewDialogue 2
   m_EditorClassIdentifier: 
-  dialogueText: This should reset the text from the beginning in next interaction
-  choices: []
+  dialogueText: reset to start or no?
+  choices:
+  - choiceText: reset
+    nextDialogue: {fileID: 11400000, guid: 58a9f68716f21e046acbb2c4453aa269, type: 2}
+  - choiceText: no
+    nextDialogue: {fileID: 0}
   nextDialogue: {fileID: 0}
-  saveProgress: 0
+  saveProgress: 1
   disableInteractionAfter: 0
-  resetInteraction: 1
+  resetInteraction: 0
   enableInteraction: 0

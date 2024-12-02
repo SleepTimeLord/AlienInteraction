@@ -1,31 +1,39 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
     [Header("UI Components")]
-    public TextMeshProUGUI dialogueText;   // The text field for dialogue
-    public GameObject choicesContainer;    // Container for choice buttons
-    public Button choiceButtonPrefab;      // Button prefab for dialogue choices
-    public GameObject dialogueUI;          // UI panel to show/hide dialogue
+    public TextMeshProUGUI dialogueText;  // Main dialogue text
+    public TextMeshProUGUI choice1Text;  // Text for the first choice
+    public TextMeshProUGUI choice2Text;  // Text for the second choice
+    public GameObject dialogueUI;        // UI panel to show/hide dialogue
 
-    private Dialogue currentDialogue;      // The current dialogue being displayed
+    private Dialogue currentDialogue;    // The current dialogue being displayed
     private bool isDialogueActive = false; // Tracks if dialogue is ongoing
-    private NPC currentNPC;                // Reference to the NPC that initiated the dialogue
+    private NPC currentNPC;              // Reference to the NPC that initiated the dialogue
 
     private void Update()
     {
-        // Advance dialogue with Spacebar if no choices exist
-        if (isDialogueActive && Input.GetKeyDown(KeyCode.Space) && currentDialogue.choices.Length == 0)
+        if (isDialogueActive)
         {
-            if (currentDialogue.nextDialogue != null)
+            // Advance dialogue with Spacebar if no choices exist
+            if (Input.GetKeyDown(KeyCode.Space) && currentDialogue.choices.Length == 0)
             {
-                StartDialogue(currentDialogue.nextDialogue, currentNPC); // Pass NPC context
+                AdvanceDialogue();
             }
-            else
+
+            // Handle choice selection with number keys
+            if (currentDialogue.choices.Length > 0)
             {
-                EndDialogue();
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    ChooseDialogue(currentDialogue.choices[0]);
+                }
+                else if (currentDialogue.choices.Length > 1 && Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    ChooseDialogue(currentDialogue.choices[1]);
+                }
             }
         }
     }
@@ -45,21 +53,27 @@ public class DialogueManager : MonoBehaviour
 
         dialogueText.text = currentDialogue.dialogueText;
 
-        // Clear previous choices
-        foreach (Transform child in choicesContainer.transform)
-        {
-            Destroy(child.gameObject);
-        }
-
-        // Create buttons for choices
+        // Update choice texts
         if (currentDialogue.choices.Length > 0)
         {
-            foreach (var choice in currentDialogue.choices)
+            choice1Text.text = $"1. {currentDialogue.choices[0].choiceText}";
+            choice1Text.gameObject.SetActive(true);
+
+            if (currentDialogue.choices.Length > 1)
             {
-                Button choiceButton = Instantiate(choiceButtonPrefab, choicesContainer.transform);
-                choiceButton.GetComponentInChildren<TextMeshProUGUI>().text = choice.choiceText;
-                choiceButton.onClick.AddListener(() => ChooseDialogue(choice));
+                choice2Text.text = $"2. {currentDialogue.choices[1].choiceText}";
+                choice2Text.gameObject.SetActive(true);
             }
+            else
+            {
+                choice2Text.gameObject.SetActive(false); // Hide if no second choice
+            }
+        }
+        else
+        {
+            // Hide choices if none exist
+            choice1Text.gameObject.SetActive(false);
+            choice2Text.gameObject.SetActive(false);
         }
     }
 
@@ -67,17 +81,55 @@ public class DialogueManager : MonoBehaviour
     {
         if (choice.nextDialogue != null)
         {
-            // Save progress to the NPC
-            if (currentNPC != null)
+            HandleInteractionSettings(choice.nextDialogue);
+
+            if (currentNPC != null && choice.nextDialogue.saveProgress)
             {
-                currentNPC.SaveProgress(choice.nextDialogue);
+                currentNPC.SaveProgress(choice.nextDialogue); // Save progress to the NPC
             }
 
-            StartDialogue(choice.nextDialogue, currentNPC);  // Pass both next dialogue and NPC
+            StartDialogue(choice.nextDialogue, currentNPC);
         }
         else
         {
             EndDialogue();
+        }
+    }
+
+    private void AdvanceDialogue()
+    {
+        if (currentDialogue.nextDialogue != null)
+        {
+            HandleInteractionSettings(currentDialogue.nextDialogue);
+
+            if (currentNPC != null && currentDialogue.nextDialogue.saveProgress)
+            {
+                currentNPC.SaveProgress(currentDialogue.nextDialogue);
+            }
+
+            StartDialogue(currentDialogue.nextDialogue, currentNPC);
+        }
+        else
+        {
+            EndDialogue();
+        }
+    }
+
+    private void HandleInteractionSettings(Dialogue dialogue)
+    {
+        if (currentNPC == null) return;
+
+        if (dialogue.disableInteractionAfter)
+        {
+            currentNPC.DisableInteraction();
+        }
+        else if (dialogue.enableInteraction)
+        {
+            currentNPC.EnableInteraction();
+        }
+        else if (dialogue.resetInteraction)
+        {
+            currentNPC.ResetNPC();
         }
     }
 
@@ -95,5 +147,4 @@ public class DialogueManager : MonoBehaviour
         return isDialogueActive;
     }
 }
-
 

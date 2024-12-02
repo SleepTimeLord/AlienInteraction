@@ -14,6 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueText: Hello friends this is a texxt
   choices:
-  - choiceText: h
-    nextDialogue: {fileID: 11400000, guid: 7d7d7477ad6b1ea4db95c4cf8aff22fb, type: 2}
+  - choiceText: 'do choice '
+    nextDialogue: {fileID: 11400000, guid: 94aa3385f0b3e034db76830886d92bdc, type: 2}
+  - choiceText: do this
+    nextDialogue: {fileID: 11400000, guid: bc39afb7a60b9eb459ad3c2e9842bf9e, type: 2}
   nextDialogue: {fileID: 0}
+  saveProgress: 0
+  disableInteractionAfter: 0
+  resetInteraction: 0
+  enableInteraction: 0

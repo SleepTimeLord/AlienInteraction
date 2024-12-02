@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueText: Hey Whats up man
   choices: []
-  nextDialogue: {fileID: 11400000, guid: 7d7d7477ad6b1ea4db95c4cf8aff22fb, type: 2}
+  nextDialogue: {fileID: 11400000, guid: 9c8c9a9f5181b13409198ee70bfd2a36, type: 2}
+  saveProgress: 1
+  disableInteractionAfter: 0
+  resetInteraction: 0
+  enableInteraction: 0
