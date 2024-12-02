@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    public Camera playerCamera; 
-    public float interactionRange = 5f; 
-    public LayerMask interactableLayer; 
+    public Camera playerCamera;        // Assign the player camera
+    public float interactionRange = 5f; // Max distance for interaction
+    public LayerMask interactableLayer; // Layer for interactable objects
 
     void Update()
     {
-        // Check for interaction input
         if (Input.GetKeyDown(KeyCode.E))
         {
             CastInteractionRay();
@@ -19,13 +16,17 @@ public class PlayerInteraction : MonoBehaviour
 
     void CastInteractionRay()
     {
-        // Raycast from the camera through the mouse position
+        if (playerCamera == null)
+        {
+            Debug.LogError("Player camera is not assigned!");
+            return;
+        }
+
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
 
-        // Perform the raycast
         if (Physics.Raycast(ray, out RaycastHit hit, interactionRange, interactableLayer))
         {
-            // Check if the object has the IInteractable interface
+            // Check if the object implements IInteractable
             IInteractionable interactable = hit.collider.GetComponent<IInteractionable>();
             if (interactable != null)
             {
@@ -33,8 +34,12 @@ public class PlayerInteraction : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("did not interact with anything");
+                Debug.Log("Hit an object, but it doesn't implement IInteractable.");
             }
+        }
+        else
+        {
+            Debug.Log("Raycast didn't hit anything interactable.");
         }
     }
 }
