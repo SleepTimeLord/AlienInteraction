@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eb6a15105c2dbd46893d3f7c0c30153, type: 3}
   m_Name: etet
   m_EditorClassIdentifier: 
-  dialogueText: This should reset the text from the beginning in next interaction
+  dialogueText: This should reset the text from the beginning in next interaction.
+    Add a task.
   choices: []
   nextDialogue: {fileID: 0}
+  taskToAdd: Task Test
+  taskToComplete: 
+  resetTaskList: 0
   saveProgress: 0
   disableInteractionAfter: 0
   resetInteraction: 1

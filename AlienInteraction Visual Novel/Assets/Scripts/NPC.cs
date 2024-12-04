@@ -69,6 +69,7 @@ public class NPC : MonoBehaviour, IInteractionable
     // Disable further interaction by changing the layer
     public void DisableInteraction()
     {
+        print("applied");
         gameObject.layer = LayerMask.NameToLayer(interactionDisabledLayer);
     }
 

@@ -17,8 +17,11 @@ MonoBehaviour:
   - choiceText: reset
     nextDialogue: {fileID: 11400000, guid: 58a9f68716f21e046acbb2c4453aa269, type: 2}
   - choiceText: no
-    nextDialogue: {fileID: 0}
+    nextDialogue: {fileID: 11400000, guid: 135d14294bcfe27479eeab01204b0628, type: 2}
   nextDialogue: {fileID: 0}
+  taskToAdd: 
+  taskToComplete: 
+  resetTaskList: 0
   saveProgress: 1
   disableInteractionAfter: 0
   resetInteraction: 0

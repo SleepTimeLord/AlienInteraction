@@ -8,11 +8,16 @@ public class Dialogue : ScriptableObject
     public DialogueChoice[] choices; // Possible choices after this dialogue
     public Dialogue nextDialogue;    // Dialogue after this one
 
+    [Header("Task Settings")]
+    public string taskToAdd;       // ID of the task to add (leave blank if not applicable)
+    public string taskToComplete;  // ID of the task to complete (leave blank if not applicable)
+    public bool resetTaskList;     // reset all tasks on the list
+
     [Header("Interaction Settings")]
-    public bool saveProgress = true;  // Whether to save progress for this dialogue
-    public bool disableInteractionAfter;  // Disable interaction with NPC after this dialogue
-    public bool resetInteraction;  // Reset interaction state when this dialogue is reached
-    public bool enableInteraction;  // Enable interaction with the NPC
+    public bool saveProgress = true;       // Whether to save progress for this dialogue
+    public bool disableInteractionAfter;   // Disable interaction with NPC after this dialogue
+    public bool resetInteraction;          // Reset interaction state when this dialogue is reached
+    public bool enableInteraction;         // Enable interaction with the NPC
 }
 
 [System.Serializable]

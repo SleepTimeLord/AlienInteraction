@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eb6a15105c2dbd46893d3f7c0c30153, type: 3}
   m_Name: NewDialogue
   m_EditorClassIdentifier: 
-  dialogueText: Hello friends this is a texxt
+  dialogueText: Hello friends this is a texxt and complete the task hello
   choices:
   - choiceText: 'do choice '
     nextDialogue: {fileID: 11400000, guid: 94aa3385f0b3e034db76830886d92bdc, type: 2}
   - choiceText: do this
     nextDialogue: {fileID: 11400000, guid: bc39afb7a60b9eb459ad3c2e9842bf9e, type: 2}
   nextDialogue: {fileID: 0}
+  taskToAdd: 
+  taskToComplete: hello
+  resetTaskList: 0
   saveProgress: 0
   disableInteractionAfter: 0
   resetInteraction: 0

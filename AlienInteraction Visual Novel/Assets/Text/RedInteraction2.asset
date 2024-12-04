@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7eb6a15105c2dbd46893d3f7c0c30153, type: 3}
-  m_Name: NewDialogue 1
+  m_Name: RedInteraction2
   m_EditorClassIdentifier: 
-  dialogueText: Hey Whats up man this shoud add a task call hello
+  dialogueText: hello this is something
   choices: []
-  nextDialogue: {fileID: 11400000, guid: 9c8c9a9f5181b13409198ee70bfd2a36, type: 2}
-  taskToAdd: hello
+  nextDialogue: {fileID: 0}
+  taskToAdd: bruh
   taskToComplete: 
   resetTaskList: 0
-  saveProgress: 1
-  disableInteractionAfter: 0
+  saveProgress: 0
+  disableInteractionAfter: 1
   resetInteraction: 0
   enableInteraction: 0

@@ -82,6 +82,7 @@ public class DialogueManager : MonoBehaviour
         if (choice.nextDialogue != null)
         {
             HandleInteractionSettings(choice.nextDialogue);
+            HandleTaskSettings(choice.nextDialogue);
 
             if (currentNPC != null && choice.nextDialogue.saveProgress)
             {
@@ -100,9 +101,10 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentDialogue.nextDialogue != null)
         {
-            HandleInteractionSettings(currentDialogue.nextDialogue);
+            HandleInteractionSettings(currentDialogue.nextDialogue); // here is to test
+            HandleTaskSettings(currentDialogue.nextDialogue);
 
-            if (currentNPC != null && currentDialogue.nextDialogue.saveProgress)
+            if (currentNPC != null && currentDialogue.saveProgress)
             {
                 currentNPC.SaveProgress(currentDialogue.nextDialogue);
             }
@@ -133,6 +135,25 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private void HandleTaskSettings(Dialogue dialogue)
+    {
+        if (!string.IsNullOrEmpty(dialogue.taskToAdd))
+        {
+            TaskManager.AddTask(dialogue.taskToAdd);
+        }
+
+        if (!string.IsNullOrEmpty(dialogue.taskToComplete))
+        {
+            TaskManager.CompleteTask(dialogue.taskToComplete);
+        }
+
+        if (dialogue.resetTaskList) // Example of triggering reset on a specific dialogue flag
+        {
+            TaskManager.ResetAllTasks();
+        }
+    }
+
+
     private void EndDialogue()
     {
         isDialogueActive = false;
@@ -147,4 +168,5 @@ public class DialogueManager : MonoBehaviour
         return isDialogueActive;
     }
 }
+
 
