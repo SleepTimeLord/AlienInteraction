@@ -99,16 +99,18 @@ public class DialogueManager : MonoBehaviour
 
     private void AdvanceDialogue()
     {
+        // handles all the settings before advancing to next dialogue
+        HandleInteractionSettings(currentDialogue);
+        HandleTaskSettings(currentDialogue);
+
+        if (currentNPC != null && currentDialogue.saveProgress)
+        {
+            currentNPC.SaveProgress(currentDialogue);
+        }
+
+        // goes to next dialogue and ends current dialogue
         if (currentDialogue.nextDialogue != null)
         {
-            HandleInteractionSettings(currentDialogue.nextDialogue); // here is to test
-            HandleTaskSettings(currentDialogue.nextDialogue);
-
-            if (currentNPC != null && currentDialogue.saveProgress)
-            {
-                currentNPC.SaveProgress(currentDialogue.nextDialogue);
-            }
-
             StartDialogue(currentDialogue.nextDialogue, currentNPC);
         }
         else
