@@ -20,6 +20,6 @@ MonoBehaviour:
   taskToComplete: 
   resetTaskList: 0
   saveProgress: 0
-  disableInteractionAfter: 0
+  disableInteractionAfter: 1
   resetInteraction: 0
   enableInteraction: 0
