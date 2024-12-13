@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7eb6a15105c2dbd46893d3f7c0c30153, type: 3}
-  m_Name: Prologue1
+  m_Name: Prologue1 11
   m_EditorClassIdentifier: 
-  dialogueText: 'LOG ENTRY: SOL 96 Major Tom has lost connection to Ground Control.'
+  dialogueText: It didn't sound biological but, even still, no machine I know could've
+    made a noise like that.
   dialogueName: x
   choices: []
-  nextDialogue: {fileID: 11400000, guid: 80b2625ebb97c454e9ed636554cfb512, type: 2}
+  nextDialogue: {fileID: 11400000, guid: 2cc9c10f73f52b340bae2f993e51ac16, type: 2}
   taskToAdd: 
   taskToComplete: 
   resetTaskList: 0

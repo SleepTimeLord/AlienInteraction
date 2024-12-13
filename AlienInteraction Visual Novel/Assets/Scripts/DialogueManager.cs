@@ -4,27 +4,25 @@ using TMPro;
 public class DialogueManager : MonoBehaviour
 {
     [Header("UI Components")]
-    public TextMeshProUGUI dialogueText;  // Main dialogue text
-    public TextMeshProUGUI dialogueName; // Name of Speaker
-    public TextMeshProUGUI choice1Text;  // Text for the first choice
-    public TextMeshProUGUI choice2Text;  // Text for the second choice
-    public GameObject dialogueUI;        // UI panel to show/hide dialogue
+    public TextMeshProUGUI dialogueText;
+    public TextMeshProUGUI dialogueName;
+    public TextMeshProUGUI choice1Text;
+    public TextMeshProUGUI choice2Text;
+    public GameObject dialogueUI;
 
-    private Dialogue currentDialogue;    // The current dialogue being displayed
-    private bool isDialogueActive = false; // Tracks if dialogue is ongoing
-    private NPC currentNPC;              // Reference to the NPC that initiated the dialogue
+    private Dialogue currentDialogue;
+    private bool isDialogueActive = false;
+    private NPC currentNPC; // Optional reference to the NPC that initiated the dialogue
 
     private void Update()
     {
         if (isDialogueActive)
         {
-            // Advance dialogue with Spacebar if no choices exist
             if (Input.GetKeyDown(KeyCode.Space) && currentDialogue.choices.Length == 0)
             {
                 AdvanceDialogue();
             }
 
-            // Handle choice selection with number keys
             if (currentDialogue.choices.Length > 0)
             {
                 if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -39,12 +37,21 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    public void StartDialogue(Dialogue dialogue)
+    {
+        currentDialogue = dialogue;
+        currentNPC = null; // No NPC associated
+        isDialogueActive = true;
+        dialogueUI.SetActive(true);
+        DisplayDialogue();
+    }
+
     public void StartDialogue(Dialogue dialogue, NPC npc)
     {
         currentDialogue = dialogue;
-        currentNPC = npc; // Track the NPC who started this dialogue
+        currentNPC = npc; // Associate NPC
         isDialogueActive = true;
-        dialogueUI.SetActive(true); // Show the dialogue UI
+        dialogueUI.SetActive(true);
         DisplayDialogue();
     }
 
@@ -54,7 +61,6 @@ public class DialogueManager : MonoBehaviour
 
         dialogueText.text = currentDialogue.dialogueText;
 
-        // Update choice texts
         if (currentDialogue.choices.Length > 0)
         {
             choice1Text.text = $"1. {currentDialogue.choices[0].choiceText}";
@@ -67,19 +73,18 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
-                choice2Text.gameObject.SetActive(false); // Hide if no second choice
+                choice2Text.gameObject.SetActive(false);
             }
         }
         else
         {
-            // Hide choices if none exist
             choice1Text.gameObject.SetActive(false);
             choice2Text.gameObject.SetActive(false);
         }
 
-        if (currentDialogue.dialogueName != null)
+        if (!string.IsNullOrEmpty(currentDialogue.dialogueName))
         {
-            dialogueName.text =  currentDialogue.dialogueName;
+            dialogueName.text = currentDialogue.dialogueName;
             dialogueName.gameObject.SetActive(true);
         }
         else
@@ -95,9 +100,9 @@ public class DialogueManager : MonoBehaviour
             HandleInteractionSettings(choice.nextDialogue);
             HandleTaskSettings(choice.nextDialogue);
 
-            if (currentNPC != null && choice.nextDialogue.saveProgress)
+            if (choice.nextDialogue.saveProgress && !string.IsNullOrEmpty(choice.nextDialogue.progressID))
             {
-                currentNPC.SaveProgress(choice.nextDialogue); // Save progress to the NPC
+                StoryManager.Instance.MarkProgressCompleted(choice.nextDialogue.progressID);
             }
 
             StartDialogue(choice.nextDialogue, currentNPC);
@@ -110,16 +115,14 @@ public class DialogueManager : MonoBehaviour
 
     private void AdvanceDialogue()
     {
-        // handles all the settings before advancing to next dialogue
         HandleInteractionSettings(currentDialogue);
         HandleTaskSettings(currentDialogue);
 
-        if (currentNPC != null && currentDialogue.saveProgress)
+        if (!string.IsNullOrEmpty(currentDialogue.progressID))
         {
-            currentNPC.SaveProgress(currentDialogue);
+            StoryManager.Instance.MarkProgressCompleted(currentDialogue.progressID);
         }
 
-        // goes to next dialogue and ends current dialogue
         if (currentDialogue.nextDialogue != null)
         {
             StartDialogue(currentDialogue.nextDialogue, currentNPC);
@@ -160,19 +163,16 @@ public class DialogueManager : MonoBehaviour
             TaskManager.CompleteTask(dialogue.taskToComplete);
         }
 
-        if (dialogue.resetTaskList) // Example of triggering reset on a specific dialogue flag
+        if (dialogue.resetTaskList)
         {
             TaskManager.ResetAllTasks();
         }
     }
 
-
     private void EndDialogue()
     {
         isDialogueActive = false;
-        dialogueUI.SetActive(false); // Hide the dialogue UI
-
-        // Clear NPC reference to avoid accidental continuation
+        dialogueUI.SetActive(false);
         currentNPC = null;
     }
 
@@ -181,5 +181,3 @@ public class DialogueManager : MonoBehaviour
         return isDialogueActive;
     }
 }
-
-

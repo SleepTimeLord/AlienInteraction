@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7eb6a15105c2dbd46893d3f7c0c30153, type: 3}
-  m_Name: Prologue1
+  m_Name: Prologue1 3
   m_EditorClassIdentifier: 
-  dialogueText: 'LOG ENTRY: SOL 96 Major Tom has lost connection to Ground Control.'
+  dialogueText: The light for my comms system was on so there shouldn't be anything
+    wrong here.
   dialogueName: x
   choices: []
-  nextDialogue: {fileID: 11400000, guid: 80b2625ebb97c454e9ed636554cfb512, type: 2}
+  nextDialogue: {fileID: 11400000, guid: 6dd1ad43e8752ca4ead695a89cb32c20, type: 2}
   taskToAdd: 
   taskToComplete: 
   resetTaskList: 0

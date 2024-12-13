@@ -20,6 +20,9 @@ public class Dialogue : ScriptableObject
     public bool disableInteractionAfter;   // Disable interaction with NPC after this dialogue
     public bool resetInteraction;          // Reset interaction state when this dialogue is reached
     public bool enableInteraction;         // Enable interaction with the NPC
+
+    [Header("Story Progression")]
+    public string progressID; // Unique identifier for story progression
 }
 
 [System.Serializable]
