@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ResetTakDia
   m_EditorClassIdentifier: 
   dialogueText: I reset the tasks
+  dialogueName: 
   choices: []
   nextDialogue: {fileID: 0}
   taskToAdd: 

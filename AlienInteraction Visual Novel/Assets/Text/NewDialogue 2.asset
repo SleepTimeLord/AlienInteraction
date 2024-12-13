@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: NewDialogue 2
   m_EditorClassIdentifier: 
   dialogueText: reset to start or no?
+  dialogueName: Sam
   choices:
   - choiceText: reset
     nextDialogue: {fileID: 11400000, guid: 58a9f68716f21e046acbb2c4453aa269, type: 2}

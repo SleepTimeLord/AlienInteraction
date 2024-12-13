@@ -5,8 +5,10 @@ public class Dialogue : ScriptableObject
 {
     [TextArea(3, 10)]
     public string dialogueText;   // The text to display in the dialogue
+    public string dialogueName; // This text to display the name of the character doing the dialogue
     public DialogueChoice[] choices; // Possible choices after this dialogue
     public Dialogue nextDialogue;    // Dialogue after this one
+
 
     [Header("Task Settings")]
     public string taskToAdd;       // ID of the task to add (leave blank if not applicable)

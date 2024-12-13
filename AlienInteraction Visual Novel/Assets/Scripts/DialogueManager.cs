@@ -5,6 +5,7 @@ public class DialogueManager : MonoBehaviour
 {
     [Header("UI Components")]
     public TextMeshProUGUI dialogueText;  // Main dialogue text
+    public TextMeshProUGUI dialogueName; // Name of Speaker
     public TextMeshProUGUI choice1Text;  // Text for the first choice
     public TextMeshProUGUI choice2Text;  // Text for the second choice
     public GameObject dialogueUI;        // UI panel to show/hide dialogue
@@ -74,6 +75,16 @@ public class DialogueManager : MonoBehaviour
             // Hide choices if none exist
             choice1Text.gameObject.SetActive(false);
             choice2Text.gameObject.SetActive(false);
+        }
+
+        if (currentDialogue.dialogueName != null)
+        {
+            dialogueName.text =  currentDialogue.dialogueName;
+            dialogueName.gameObject.SetActive(true);
+        }
+        else
+        {
+            dialogueName.gameObject.SetActive(false);
         }
     }
 
