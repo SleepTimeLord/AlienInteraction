@@ -27,6 +27,8 @@ public class StoryManager : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         LoadProgress(); // Load progress at the start
     }
 

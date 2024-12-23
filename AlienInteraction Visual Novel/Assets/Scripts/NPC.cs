@@ -11,6 +11,7 @@ public class NPC : MonoBehaviour, IInteractionable
     public bool disableInteractionAfterTalk = false;
     public string interactionDisabledLayer = "NonInteractable";
     public string interactionEnabledLayer = "Interactable";
+    public string completeProgress;
 
     private Dialogue savedDialogue;
     private bool hasBeenInteractedWith = false;
@@ -43,6 +44,11 @@ public class NPC : MonoBehaviour, IInteractionable
             {
                 DisableInteraction();
             }
+
+            if (completeProgress != null)
+            {
+                CompleteProgress();
+            }
         }
     }
 
@@ -61,6 +67,11 @@ public class NPC : MonoBehaviour, IInteractionable
         savedDialogue = initialDialogue;
         hasBeenInteractedWith = false;
         EnableInteraction();
+    }
+
+    public void CompleteProgress()
+    {
+        StoryManager.Instance.MarkProgressCompleted(completeProgress);
     }
 }
 

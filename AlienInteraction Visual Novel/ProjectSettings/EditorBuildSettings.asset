@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/PrologueScene.unity
     guid: 1a82b5ae3139e2b46957747a99179417
   - enabled: 1
-    path: Assets/Scenes/TemplateGame.unity
+    path: Assets/Scenes/Game.unity
     guid: e5eb3c2374c98894e8f07a8166ca4df1
   m_configObjects: {}
