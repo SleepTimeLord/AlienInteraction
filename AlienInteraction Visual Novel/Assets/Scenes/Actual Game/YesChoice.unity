@@ -678,9 +678,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e9f3fbaf7739cf45b0b4375016774b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueStartTrigger: {fileID: 11400000, guid: 967755d6e534e1745822c8d27fd14b11, type: 2}
+  dialogueStartTrigger: {fileID: 11400000, guid: d37c6b77ef874ee4ca9960bd9e714314, type: 2}
   triggerOnStart: 1
-  nextScene: Complete_Good_Ending
+  nextScene: Complete_Bad_Ending
 --- !u!4 &528296820
 Transform:
   m_ObjectHideFlags: 0
