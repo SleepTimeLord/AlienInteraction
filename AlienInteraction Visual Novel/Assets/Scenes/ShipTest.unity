@@ -23,7 +23,6 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
   m_AmbientIntensity: 1.03
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
@@ -102,8 +101,6 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
   m_LightingDataAsset: {fileID: 112000000, guid: a63e3d00879d78648a4b42a9ccfe6970, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 8c38e02f3816c394ab43bc4ff4c0d7c9, type: 2}
 --- !u!196 &4
