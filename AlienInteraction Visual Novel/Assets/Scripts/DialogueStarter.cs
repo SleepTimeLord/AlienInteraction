@@ -42,7 +42,7 @@ public class DialogueStarter : MonoBehaviour
             return;
         }
 
-        if (!StoryManager.Instance.IsProgressCompleted("Completed_Prologue"))
+        if (!StoryManager.Instance.IsProgressCompleted(nextScene))
         {
             dialogueManager?.StartDialogue(dialogueStartTrigger);
         }
