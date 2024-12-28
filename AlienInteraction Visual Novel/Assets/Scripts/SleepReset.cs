@@ -20,6 +20,14 @@ public class SleepReset : MonoBehaviour, IInteractionable
         if (day1Script.doneDay1)
         {
             StoryManager.Instance.MarkProgressCompleted("Sleep_Talk1");
+            day1Script.doneDay1 = false;
+        }
+
+        if (day1Script.doneDay2)
+        {
+            TaskManager.CompleteTask("Go To Bed");
+            StartCoroutine(Sleeping());
+            day1Script.doneDay2 = false;
         }
     }
 
@@ -45,5 +53,13 @@ public class SleepReset : MonoBehaviour, IInteractionable
         blackScreen.SetActive(false);
         playerMovement.ResetPlayerPos();
         playerCam.ResetCamPosition();
+    }
+
+
+    IEnumerator Sleeping()
+    {
+        yield return new WaitForSeconds(2f);
+
+        StoryManager.Instance.MarkProgressCompleted("Start_Day_3");
     }
 }

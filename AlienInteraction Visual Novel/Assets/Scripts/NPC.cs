@@ -13,7 +13,7 @@ public class NPC : MonoBehaviour, IInteractionable
     public string interactionEnabledLayer = "Interactable";
     public string completeProgress;
 
-    private Dialogue savedDialogue;
+    public Dialogue savedDialogue;
     private bool hasBeenInteractedWith = false;
 
     private void Start()

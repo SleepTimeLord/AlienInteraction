@@ -17,6 +17,13 @@ public class DirtManager : MonoBehaviour
         if (day1Script.dirtCleaned == 6)
         {
             StoryManager.Instance.MarkProgressCompleted("Done_Cleaning1");
+            day1Script.dirtCleaned = 0;
+        }
+
+        if (day1Script.dirtCleaned2 == 6)
+        {
+            StoryManager.Instance.MarkProgressCompleted("Done_Cleaning2");
+            day1Script.dirtCleaned2 = 0;
         }
     }
 }

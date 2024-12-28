@@ -64,6 +64,13 @@ public class RemoveItem : MonoBehaviour, IInteractionable
                 doneMicrowaving = false;
                 StoryManager.Instance.MarkProgressCompleted("Done_Cooking_Swedish_Meatball");
             }
+
+            if (itemCurrentlyGettingMicrowaved == day1Script.foodDay2Uncooked)
+            {
+                itemManager.EquipItem(day1Script.foodDay2Cooked);
+                doneMicrowaving = false;
+                StoryManager.Instance.MarkProgressCompleted("Cooking2_Complete");
+            }
         }
     }
 

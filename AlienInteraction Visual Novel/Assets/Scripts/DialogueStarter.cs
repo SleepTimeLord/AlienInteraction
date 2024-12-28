@@ -4,6 +4,7 @@ public class DialogueStarter : MonoBehaviour
 {
     public Dialogue dialogueStartTrigger;
     public bool triggerOnStart = true;
+    public string nextScene;
     private bool completedPrologue = false;
     private DialogueManager dialogueManager;
     private ChangeScene changeScene;
@@ -30,7 +31,6 @@ public class DialogueStarter : MonoBehaviour
         {
             // Unsubscribes from the OnProgressUpdated event to prevent it from running when the object is destroyed or the scene changes.
             StoryManager.Instance.OnProgressUpdated -= OnProgressUpdated;
-            Debug.Log("successfully Destroyed");
         }
     }
 
@@ -50,7 +50,7 @@ public class DialogueStarter : MonoBehaviour
 
     private void OnProgressUpdated(string progressKey)
     {
-        if (progressKey == "Completed_Prologue" && !completedPrologue)
+        if (progressKey == nextScene && !completedPrologue)
         {
             FinishDialogueScene();
         }
@@ -58,7 +58,6 @@ public class DialogueStarter : MonoBehaviour
 
     public void FinishDialogueScene()
     {
-        Debug.Log($"Finished prologue scene, now moving to part 1");
         completedPrologue = true;
         changeScene?.ChangeToNextScene();
     }

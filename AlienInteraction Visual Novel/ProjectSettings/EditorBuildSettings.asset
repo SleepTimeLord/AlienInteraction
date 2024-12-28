@@ -6,9 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/PrologueScene.unity
+    path: Assets/Scenes/Actual Game/PrologueScene.unity
     guid: 1a82b5ae3139e2b46957747a99179417
   - enabled: 1
-    path: Assets/Scenes/Game.unity
+    path: Assets/Scenes/Actual Game/Game.unity
     guid: e5eb3c2374c98894e8f07a8166ca4df1
+  - enabled: 1
+    path: Assets/Scenes/Actual Game/YesChoice.unity
+    guid: 2a46f64333e3dd8438f8086c1afa0193
+  - enabled: 1
+    path: Assets/Scenes/Actual Game/NoChoice.unity
+    guid: 97ec7ecb97e761547938c65a3f073d58
+  - enabled: 1
+    path: Assets/Scenes/Actual Game/EndingCredits.unity
+    guid: daba747381fc7194d8b44e0a913ddf6e
   m_configObjects: {}

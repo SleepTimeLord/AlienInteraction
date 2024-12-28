@@ -29,5 +29,11 @@ public class EatFood : MonoBehaviour
             StoryManager.Instance.MarkProgressCompleted("Eat_Swedish_Meatball");
             itemManager.UnequipItem();
         }
+
+        if (Input.GetKeyDown(KeyCode.E) && itemManager.itemCurrentlyHeld == day1Script.foodDay2Cooked)
+        {
+            StoryManager.Instance.MarkProgressCompleted("Eat_Food2");
+            itemManager.UnequipItem();
+        }
     }
 }

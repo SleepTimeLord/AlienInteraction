@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -10,17 +11,29 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI choice2Text;
     public GameObject dialogueUI;
 
+    [Header("Typewriter Effect")]
+    public float typewriterSpeed = 0.05f; // Delay between each character
+
     private Dialogue currentDialogue;
     private bool isDialogueActive = false;
     private NPC currentNPC; // Optional reference to the NPC that initiated the dialogue
+    private Coroutine typewriterCoroutine;
+    private bool isSkippingTypewriter = false;
 
     private void Update()
     {
         if (isDialogueActive)
         {
-            if (Input.GetKeyDown(KeyCode.Space) && currentDialogue.choices.Length == 0)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                AdvanceDialogue();
+                if (typewriterCoroutine != null)
+                {
+                    isSkippingTypewriter = true;
+                }
+                else if (currentDialogue.choices.Length == 0)
+                {
+                    AdvanceDialogue();
+                }
             }
 
             if (currentDialogue.choices.Length > 0)
@@ -59,7 +72,12 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentDialogue == null) return;
 
-        dialogueText.text = currentDialogue.dialogueText;
+        if (typewriterCoroutine != null)
+        {
+            StopCoroutine(typewriterCoroutine);
+        }
+
+        typewriterCoroutine = StartCoroutine(TypeText(currentDialogue.dialogueText));
 
         if (currentDialogue.choices.Length > 0)
         {
@@ -93,6 +111,26 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private IEnumerator TypeText(string text)
+    {
+        dialogueText.text = "";
+        isSkippingTypewriter = false;
+
+        foreach (char c in text)
+        {
+            if (isSkippingTypewriter)
+            {
+                dialogueText.text = text;
+                break;
+            }
+
+            dialogueText.text += c;
+            yield return new WaitForSeconds(typewriterSpeed);
+        }
+
+        typewriterCoroutine = null;
+    }
+
     private void ChooseDialogue(DialogueChoice choice)
     {
         if (choice.nextDialogue != null)
@@ -122,7 +160,6 @@ public class DialogueManager : MonoBehaviour
         {
             StoryManager.Instance.MarkProgressCompleted(currentDialogue.progressID);
         }
-
         if (currentDialogue.nextDialogue != null)
         {
             StartDialogue(currentDialogue.nextDialogue, currentNPC);
