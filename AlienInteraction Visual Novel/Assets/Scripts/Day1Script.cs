@@ -108,6 +108,7 @@ public class Day1Script : MonoBehaviour
         switch (progressKey)
         {
             case "Make_Breakfast1":
+                Debug.Log(foodDay1Uncooked);
                 EnableFridgeAndMicrowave(foodDay1Uncooked);
                 break;
 
