@@ -15,6 +15,7 @@ public class Day1Script : MonoBehaviour
     public int dirtCleaned = 0;
     public int dirtCleaned2 = 0;
     public GameObject consoleIndicateOn;
+    public GameObject consoleMic;
     public GameObject fridge;
     public GameObject bed;
     public GameObject microwave;
@@ -55,7 +56,7 @@ public class Day1Script : MonoBehaviour
     void Start()
     {
         changeScene = FindObjectOfType<ChangeScene>();
-        consoleLight = consoleIndicateOn.GetComponent<Renderer>();
+        consoleLight = consoleMic.GetComponent<Renderer>();
 
         dialogueManager = FindObjectOfType<DialogueManager>();
         if (dialogueStartTrigger != null )

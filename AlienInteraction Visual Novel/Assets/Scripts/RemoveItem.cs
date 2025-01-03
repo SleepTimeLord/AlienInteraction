@@ -7,8 +7,9 @@ public class RemoveItem : MonoBehaviour, IInteractionable
 {
     public ItemManager itemManager;
     private Day1Script day1Script;
+    public GameObject microwaveScreen;
     private Renderer rd;
-    private bool microwaving = false;
+    public bool microwaving = false;
     private bool doneMicrowaving = false;
     private GameObject itemCurrentlyGettingMicrowaved;
 
@@ -17,20 +18,14 @@ public class RemoveItem : MonoBehaviour, IInteractionable
     // Start is called before the first frame update
     private void Start()
     {
-        rd = GetComponent<Renderer>();
+        rd = microwaveScreen.GetComponent<Renderer>();
+        rd.material.color = Color.green;
         day1Script = FindObjectOfType<Day1Script>();
     }
 
     private void Update()
     {
-        if (microwaving)
-        {
-            rd.material.color = Color.red;
-        }
-        else
-        {
-            rd.material.color = Color.green;
-        }
+ 
     }
     public void Interact()
     {
@@ -77,10 +72,12 @@ public class RemoveItem : MonoBehaviour, IInteractionable
     IEnumerator MicrowavingFood(float timeMicrowaved)
     {
         microwaving = true;
+        rd.material.color = Color.red;
         gameObject.layer = LayerMask.NameToLayer(interactionDisabledLayer);
         yield return new WaitForSeconds(timeMicrowaved);
         
         doneMicrowaving = true;
+        rd.material.color = Color.green;
         microwaving = false;
         gameObject.layer = LayerMask.NameToLayer(interactionEnabledLayer);
     }
