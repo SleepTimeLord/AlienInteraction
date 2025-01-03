@@ -19,6 +19,8 @@ public class Day1Script : MonoBehaviour
     public GameObject fridge;
     public GameObject bed;
     public GameObject microwave;
+    public GameObject journeyScreen;
+    private SpriteRenderer journeyScreenSR;
     private Renderer consoleLight;
 
     [Header("Day 1")]
@@ -32,6 +34,7 @@ public class Day1Script : MonoBehaviour
     public GameObject pictureDirt;
     public GameObject uncookedSwedishMeatballs;
     public GameObject cookedSwedishMeatballs;
+    public Sprite day1Screen;
     public bool doneDay1;
 
     [Header("Day 2")]
@@ -41,6 +44,7 @@ public class Day1Script : MonoBehaviour
     public GameObject foodDay2Cooked;
     public GameObject dirtSpawn2;
     public GameObject posterDirt;
+    public Sprite day2Screen;
     public bool doneDay2;
 
     [Header("Day 3")]
@@ -49,6 +53,7 @@ public class Day1Script : MonoBehaviour
     public GameObject lastKey;
     public GameObject commPanel;
     public GameObject lever;
+    public Sprite day3Screen;
     public bool yesRoute;
     //public bool noRoute;
 
@@ -57,6 +62,9 @@ public class Day1Script : MonoBehaviour
     {
         changeScene = FindObjectOfType<ChangeScene>();
         consoleLight = consoleMic.GetComponent<Renderer>();
+        journeyScreenSR = journeyScreen.GetComponent<SpriteRenderer>();
+
+        journeyScreenSR.sprite = day1Screen;
 
         dialogueManager = FindObjectOfType<DialogueManager>();
         if (dialogueStartTrigger != null )
@@ -180,6 +188,7 @@ public class Day1Script : MonoBehaviour
                 break;
 
             case "Done_Sleeping":
+                journeyScreenSR.sprite = day2Screen;
                 ResetSleep(bed, foodDay2Uncooked);
                 TaskManager.AddTask("Make Breakfast");
                 EnableFridgeAndMicrowave(foodDay2Uncooked);
@@ -229,6 +238,7 @@ public class Day1Script : MonoBehaviour
                 break;
 
             case "Start_Day_3":
+                journeyScreenSR.sprite = day3Screen;
                 print("start of day 3");
                 lastKey.SetActive(true);
                 ResetSleep(bed, null);

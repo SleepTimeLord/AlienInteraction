@@ -17,6 +17,8 @@ public class EatFood : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(itemManager.itemCurrentlyHeld);
+        Debug.Log(day1Script.foodDay1Cooked);
 
         if (Input.GetKeyDown(KeyCode.E) && itemManager.itemCurrentlyHeld == day1Script.foodDay1Cooked)
         {
