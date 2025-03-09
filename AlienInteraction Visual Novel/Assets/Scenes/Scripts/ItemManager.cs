@@ -9,10 +9,7 @@ public class ItemManager : MonoBehaviour
 
     private void Start()
     {
-        foreach (GameObject item in items)
-        {
-            Debug.Log("Item in list: " + item.name);
-        }
+
     }
 
     public void EquipItem(GameObject equipItem)

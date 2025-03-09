@@ -1,0 +1,38 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameManager : MonoBehaviour
+{
+    public GameStateData gameStateData;
+
+    public GameEvent testEvent1;
+    public GameEvent testEvent2;
+
+    private void OnEnable()
+    {
+        if (testEvent1 != null)
+        {
+            testEvent1.OnEventRaised.AddListener(TestComplete);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if(testEvent1 != null)
+        {
+            testEvent1.OnEventRaised.RemoveListener(TestComplete);
+        }
+    }
+    
+    void TestComplete()
+    {
+        gameStateData.doneClickingBlock1 = true;
+        Debug.Log("poop");
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}

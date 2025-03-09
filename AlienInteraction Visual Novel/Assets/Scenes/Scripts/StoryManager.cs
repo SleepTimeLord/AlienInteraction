@@ -24,7 +24,7 @@ public class StoryManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -55,6 +55,7 @@ public class StoryManager : MonoBehaviour
 
     public void SaveProgress()
     {
+        Debug.Log("data saved");
         string path = Application.persistentDataPath + "/storyProgress.json";
         string data = JsonUtility.ToJson(this);
 

@@ -11,11 +11,11 @@ public class PlayerCam : MonoBehaviour
     private float yRotation;
     public Quaternion originalRotation;
     public Quaternion originalOrientationRotation;
-    private SleepReset isSleeping;
+    //private SleepReset isSleeping;
 
     void Start()
     {
-        isSleeping = FindObjectOfType<SleepReset>();
+        //isSleeping = FindObjectOfType<SleepReset>();
         originalRotation = transform.rotation;
         originalOrientationRotation = orientation.rotation;
 
@@ -26,20 +26,19 @@ public class PlayerCam : MonoBehaviour
 
     void Update()
     {
-        if (!isSleeping.sleeping)
-        {
-            // Mouse input for camera rotation
-            float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
-            float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
 
-            yRotation += mouseX;
+        // Mouse input for camera rotation
+        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
 
-            xRotation += mouseY;
-            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        yRotation += mouseX;
 
-            transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-            orientation.rotation = Quaternion.Euler(0, yRotation, 0);
-        }
+        xRotation += mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+        
     }
 
     public void ResetCamPosition()
