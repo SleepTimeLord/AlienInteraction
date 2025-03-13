@@ -22,7 +22,7 @@ public class Fridge : MonoBehaviour, IInteractionable
     // Start is called before the first frame update
     void Start()
     {
-        itemManager = FindObjectOfType<ItemManager>();
+        itemManager = FindAnyObjectByType<ItemManager>();
     }
 
     // Update is called once per frame

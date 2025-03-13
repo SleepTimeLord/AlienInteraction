@@ -60,13 +60,13 @@ public class Day1Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        changeScene = FindObjectOfType<ChangeScene>();
+        changeScene = FindAnyObjectByType<ChangeScene>();
         consoleLight = consoleMic.GetComponent<Renderer>();
         journeyScreenSR = journeyScreen.GetComponent<SpriteRenderer>();
 
         journeyScreenSR.sprite = day1Screen;
 
-        dialogueManager = FindObjectOfType<DialogueManager>();
+        dialogueManager = FindAnyObjectByType<DialogueManager>();
         if (dialogueStartTrigger != null )
         {
             StartDialogue();

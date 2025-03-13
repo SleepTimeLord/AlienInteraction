@@ -23,7 +23,7 @@ public class NPC : MonoBehaviour, IInteractionable
 
     public void Interact()
     {
-        DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
+        DialogueManager dialogueManager = Object.FindFirstObjectByType<DialogueManager>();
         if (dialogueManager != null && !dialogueManager.IsDialogueActive())
         {
             Dialogue dialogueToStart = savedDialogue;

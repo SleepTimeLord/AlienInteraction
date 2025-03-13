@@ -10,7 +10,7 @@ public class Dirt : MonoBehaviour, IInteractionable
     // Start is called before the first frame update
     private void Start()
     {
-        day1Script = FindObjectOfType<Day1Script>();
+        day1Script = FindAnyObjectByType<Day1Script>();
     }
     public void Interact()
     {

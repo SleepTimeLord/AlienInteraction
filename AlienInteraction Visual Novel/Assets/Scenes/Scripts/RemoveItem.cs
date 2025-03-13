@@ -20,7 +20,7 @@ public class RemoveItem : MonoBehaviour, IInteractionable
     {
         rd = microwaveScreen.GetComponent<Renderer>();
         rd.material.color = Color.green;
-        day1Script = FindObjectOfType<Day1Script>();
+        day1Script = FindAnyObjectByType<Day1Script>();
     }
 
     private void Update()

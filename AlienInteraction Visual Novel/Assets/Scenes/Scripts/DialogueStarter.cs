@@ -11,8 +11,8 @@ public class DialogueStarter : MonoBehaviour
 
     private void Start()
     {
-        changeScene = FindObjectOfType<ChangeScene>();
-        dialogueManager = FindObjectOfType<DialogueManager>();
+        changeScene = FindAnyObjectByType<ChangeScene>();
+        dialogueManager = FindAnyObjectByType<DialogueManager>();
         if (triggerOnStart && dialogueStartTrigger != null)
         {
             StartDialogue();

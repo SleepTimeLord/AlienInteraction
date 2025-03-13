@@ -8,7 +8,7 @@ public class DirtManager : MonoBehaviour
     Day1Script day1Script;
     void Start()
     {
-        day1Script = FindObjectOfType<Day1Script>();
+        day1Script = FindAnyObjectByType<Day1Script>();
     }
 
     // Update is called once per frame

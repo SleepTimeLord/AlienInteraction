@@ -34,9 +34,9 @@ public class SleepReset : MonoBehaviour, IInteractionable
     void Start()
     {
         sleeping = false;
-        day1Script = FindObjectOfType<Day1Script>();
-        playerMovement = FindObjectOfType<PlayerMovement>();
-        playerCam = FindObjectOfType<PlayerCam>();
+        day1Script = FindAnyObjectByType<Day1Script>();
+        playerMovement = FindAnyObjectByType<PlayerMovement>();
+        playerCam = FindAnyObjectByType<PlayerCam>();
     }
 
     // Update is called once per frame

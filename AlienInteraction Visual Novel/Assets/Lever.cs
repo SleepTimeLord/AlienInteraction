@@ -9,8 +9,8 @@ public class Lever : MonoBehaviour, IInteractionable
 
     void Start()
     {
-        changeScene = FindObjectOfType<ChangeScene>();
-        day1Script = FindObjectOfType<Day1Script>();
+        changeScene = FindAnyObjectByType<ChangeScene>();
+        day1Script = FindAnyObjectByType<Day1Script>();
     }
     // Start is called before the first frame update
     public void Interact()

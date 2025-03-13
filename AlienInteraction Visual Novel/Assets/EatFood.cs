@@ -10,8 +10,8 @@ public class EatFood : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        itemManager = FindObjectOfType<ItemManager>();
-        day1Script = FindObjectOfType<Day1Script>();
+        itemManager = FindAnyObjectByType<ItemManager>();
+        day1Script = FindAnyObjectByType<Day1Script>();
     }
 
     // Update is called once per frame
