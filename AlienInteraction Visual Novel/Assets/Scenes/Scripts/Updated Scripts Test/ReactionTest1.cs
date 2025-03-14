@@ -11,8 +11,8 @@ public class ReactionTest1 : MonoBehaviour, IInteractionable
 
     public void TurnItGreen()
     {
-        int layerIndex = LayerMask.NameToLayer("Interactable");
-        Debug.Log($"Layer index for 'Interactable': {layerIndex}");
+        int layerIndex = LayerMask.NameToLayer("TapInteractable");
+        Debug.Log($"Layer index for 'TapInteractable': {layerIndex}");
 
         if (layerIndex != -1)
         {
@@ -21,7 +21,7 @@ public class ReactionTest1 : MonoBehaviour, IInteractionable
         }
         else
         {
-            Debug.LogWarning("Layer 'Interactable' not found! Did you create it?");
+            Debug.LogWarning("Layer 'TapInteractable' not found! Did you create it?");
         }
     }
 

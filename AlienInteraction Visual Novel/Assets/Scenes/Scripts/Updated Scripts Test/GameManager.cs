@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     {
         if (testEvent1 != null && !gameStateData.doneClickingBlock1)
         {
-            Debug.Log("this is activated");
+            //Debug.Log("this is activated");
             testEvent1.OnEventRaised.AddListener(TestComplete);
         }
     }

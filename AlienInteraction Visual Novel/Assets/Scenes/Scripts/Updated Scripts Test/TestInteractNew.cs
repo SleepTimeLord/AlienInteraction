@@ -12,7 +12,7 @@ public class TestInteractNew : MonoBehaviour, IInteractionable
     {
         if (!gameStateData.doneClickingBlock1)
         {
-            gameObject.layer = LayerMask.NameToLayer("Interactable");
+            gameObject.layer = LayerMask.NameToLayer("TapInteractable");
         }
         else
         {
