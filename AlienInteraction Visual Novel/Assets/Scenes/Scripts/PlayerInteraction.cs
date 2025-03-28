@@ -74,6 +74,10 @@ public class PlayerInteraction : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                holdingTime = 0;
+            }
         }
     }
 
@@ -118,40 +122,4 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
     } 
-    void ShowTextForInteract()
-    {
-        // this is a template to indicate if i should show text on the screen to do something
-        return;
-    }
-
-
-/*    public void CastInteractionRay()
-    {
-        if (playerCamera == null)
-        {
-            Debug.LogError("Player camera is not assigned!");
-            return;
-        }
-
-        Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, interactionRange, tapInteractableLayer))
-        {
-            // Check if the object implements IInteractable
-            IInteractionable interactable = hit.collider.GetComponent<IInteractionable>();
-            if (interactable != null)
-            {
-                //isHolding = true;
-                interactable.Interact();
-            }
-            else
-            {
-                Debug.Log("Hit an object, but it doesn't implement IInteractable.");
-            }
-        }
-        else
-        {
-            Debug.Log("Raycast didn't hit anything interactable.");
-        }
-    }*/
 }
