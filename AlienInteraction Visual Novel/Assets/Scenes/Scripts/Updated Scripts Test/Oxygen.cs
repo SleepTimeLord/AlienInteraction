@@ -18,10 +18,7 @@ public class Oxygen : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Q))
-        {
-            StartCoroutine(IncreaseOxygenOvertime(100f));
-        }
+
     }
 
     // Increases oxygen gradually until reaching the target value.

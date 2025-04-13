@@ -35,6 +35,15 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ActivateAntiGravity"",
+                    ""type"": ""Button"",
+                    ""id"": ""45a1bce4-bbe5-4058-8a40-76dd16bc7cb1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -48,6 +57,17 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e2fcea8a-2649-4d26-9bbc-2f88c58488ca"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActivateAntiGravity"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -57,6 +77,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         // PlayerControls
         m_PlayerControls = asset.FindActionMap("PlayerControls", throwIfNotFound: true);
         m_PlayerControls_Interact = m_PlayerControls.FindAction("Interact", throwIfNotFound: true);
+        m_PlayerControls_ActivateAntiGravity = m_PlayerControls.FindAction("ActivateAntiGravity", throwIfNotFound: true);
     }
 
     ~@PlayerController()
@@ -124,11 +145,13 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerControls;
     private List<IPlayerControlsActions> m_PlayerControlsActionsCallbackInterfaces = new List<IPlayerControlsActions>();
     private readonly InputAction m_PlayerControls_Interact;
+    private readonly InputAction m_PlayerControls_ActivateAntiGravity;
     public struct PlayerControlsActions
     {
         private @PlayerController m_Wrapper;
         public PlayerControlsActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
         public InputAction @Interact => m_Wrapper.m_PlayerControls_Interact;
+        public InputAction @ActivateAntiGravity => m_Wrapper.m_PlayerControls_ActivateAntiGravity;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -141,6 +164,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @ActivateAntiGravity.started += instance.OnActivateAntiGravity;
+            @ActivateAntiGravity.performed += instance.OnActivateAntiGravity;
+            @ActivateAntiGravity.canceled += instance.OnActivateAntiGravity;
         }
 
         private void UnregisterCallbacks(IPlayerControlsActions instance)
@@ -148,6 +174,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @ActivateAntiGravity.started -= instance.OnActivateAntiGravity;
+            @ActivateAntiGravity.performed -= instance.OnActivateAntiGravity;
+            @ActivateAntiGravity.canceled -= instance.OnActivateAntiGravity;
         }
 
         public void RemoveCallbacks(IPlayerControlsActions instance)
@@ -168,5 +197,6 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     public interface IPlayerControlsActions
     {
         void OnInteract(InputAction.CallbackContext context);
+        void OnActivateAntiGravity(InputAction.CallbackContext context);
     }
 }
