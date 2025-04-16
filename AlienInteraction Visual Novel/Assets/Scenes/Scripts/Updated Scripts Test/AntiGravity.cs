@@ -56,6 +56,4 @@ public class AntiGravity : MonoBehaviour
             gravitySwitch = !gravitySwitch;
         }        
     }
-
-
 }
