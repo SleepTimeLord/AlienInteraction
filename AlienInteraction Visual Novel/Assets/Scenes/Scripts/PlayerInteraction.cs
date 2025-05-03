@@ -56,7 +56,7 @@ public class PlayerInteraction : MonoBehaviour
 
             if (hitObject != null)
             {
-                if (hitObject.layer == 7)
+                if (((1 << hitObject.layer) & holdInteractableLayer.value) != 0)
                 {
                     IInteractionable interactable = hitObject.GetComponent<IInteractionable>();
                     if (interactable != null)
@@ -104,7 +104,7 @@ public class PlayerInteraction : MonoBehaviour
 
         if (hitObject != null)
         {
-            if (hitObject.layer == 3) 
+            if (((1 << hitObject.layer) & tapInteractableLayer.value) != 0)
             {
                 IInteractionable interactable = hitObject.GetComponent<IInteractionable>();
                 if (interactable != null)

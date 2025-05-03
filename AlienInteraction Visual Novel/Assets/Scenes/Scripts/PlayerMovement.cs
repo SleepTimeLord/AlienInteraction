@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform playerPosition;
     public AntiGravity antiGravity;
 
+    private ItemManager itemManager;
     private Rigidbody rb;
     private Vector3 movementInput;
     public bool isOnGround;
@@ -16,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 startingPosition;
     private void Start()
     {
+        itemManager = FindAnyObjectByType<ItemManager>();
         antiGravity = FindAnyObjectByType<AntiGravity>();
         //isSleeping = FindObjectOfType<SleepReset>();
         rb = GetComponent<Rigidbody>();
@@ -53,14 +55,13 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    private void FixedUpdate()
+    public void StartPlayerMovement()
     {
         // Calculate velocity
         Vector3 moveVelocity = movementInput * moveSpeed;
-       
+
         // Apply movement via Rigidbody
         rb.linearVelocity = new Vector3(moveVelocity.x, rb.linearVelocity.y, moveVelocity.z);
-
     }
 
     public void ResetPlayerPos()

@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class PickUpItem : MonoBehaviour, IInteractionable
 {
-    public GameObject enablePlayerObject;
-    public ItemManager itemManager;
+    public GameObject correspondingHoldable;
+    private ItemManager itemManager;
+
+    private void Start()
+    {
+        itemManager = FindAnyObjectByType<ItemManager>();
+    }
     public void Interact()
     {
         if (itemManager != null)
         {
-            Destroy(gameObject);
-            enablePlayerObject.SetActive(true);
-
-            itemManager.itemCurrentlyHeld = enablePlayerObject;
+            if (itemManager.heldObj == null)
+            {
+                itemManager.pickedUpObject = transform.gameObject;
+            }
         }
         else
         {

@@ -27,12 +27,7 @@ public class AntiGravity : MonoBehaviour
         playerController.Disable();
     }
 
-    void Start()
-    {
-
-    }
-
-    void FixedUpdate()
+    public void GravitySwitch()
     {
         if (gravitySwitch)
         {
@@ -46,7 +41,6 @@ public class AntiGravity : MonoBehaviour
             Physics.gravity = new Vector3(0f, -9.8f, 0f);
             turnCamUpsidedown.rotation = Quaternion.Slerp(turnCamUpsidedown.rotation, Quaternion.Euler(0f, 0f, 0f), Time.deltaTime * smooth);
         }
-
     }
 
     void ToggleAntiGravity(InputAction.CallbackContext context)
@@ -56,6 +50,4 @@ public class AntiGravity : MonoBehaviour
             gravitySwitch = !gravitySwitch;
         }        
     }
-
-
 }
