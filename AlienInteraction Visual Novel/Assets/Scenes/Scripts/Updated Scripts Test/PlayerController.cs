@@ -44,6 +44,24 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ExitInspect"",
+                    ""type"": ""Button"",
+                    ""id"": ""f9dbe0c9-e997-4e5f-b468-28e81f7f70a8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateInpectedObject"",
+                    ""type"": ""Button"",
+                    ""id"": ""dbae06a9-347d-4ab7-8fb7-da82d3ff39b5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +86,28 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""action"": ""ActivateAntiGravity"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b7f6c82e-7958-4b5c-8d30-eecad34684a6"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ExitInspect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e07858e3-05f8-4a8e-94ba-5353b14427d0"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateInpectedObject"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +118,8 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         m_PlayerControls = asset.FindActionMap("PlayerControls", throwIfNotFound: true);
         m_PlayerControls_Interact = m_PlayerControls.FindAction("Interact", throwIfNotFound: true);
         m_PlayerControls_ActivateAntiGravity = m_PlayerControls.FindAction("ActivateAntiGravity", throwIfNotFound: true);
+        m_PlayerControls_ExitInspect = m_PlayerControls.FindAction("ExitInspect", throwIfNotFound: true);
+        m_PlayerControls_RotateInpectedObject = m_PlayerControls.FindAction("RotateInpectedObject", throwIfNotFound: true);
     }
 
     ~@PlayerController()
@@ -146,12 +188,16 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private List<IPlayerControlsActions> m_PlayerControlsActionsCallbackInterfaces = new List<IPlayerControlsActions>();
     private readonly InputAction m_PlayerControls_Interact;
     private readonly InputAction m_PlayerControls_ActivateAntiGravity;
+    private readonly InputAction m_PlayerControls_ExitInspect;
+    private readonly InputAction m_PlayerControls_RotateInpectedObject;
     public struct PlayerControlsActions
     {
         private @PlayerController m_Wrapper;
         public PlayerControlsActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
         public InputAction @Interact => m_Wrapper.m_PlayerControls_Interact;
         public InputAction @ActivateAntiGravity => m_Wrapper.m_PlayerControls_ActivateAntiGravity;
+        public InputAction @ExitInspect => m_Wrapper.m_PlayerControls_ExitInspect;
+        public InputAction @RotateInpectedObject => m_Wrapper.m_PlayerControls_RotateInpectedObject;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -167,6 +213,12 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @ActivateAntiGravity.started += instance.OnActivateAntiGravity;
             @ActivateAntiGravity.performed += instance.OnActivateAntiGravity;
             @ActivateAntiGravity.canceled += instance.OnActivateAntiGravity;
+            @ExitInspect.started += instance.OnExitInspect;
+            @ExitInspect.performed += instance.OnExitInspect;
+            @ExitInspect.canceled += instance.OnExitInspect;
+            @RotateInpectedObject.started += instance.OnRotateInpectedObject;
+            @RotateInpectedObject.performed += instance.OnRotateInpectedObject;
+            @RotateInpectedObject.canceled += instance.OnRotateInpectedObject;
         }
 
         private void UnregisterCallbacks(IPlayerControlsActions instance)
@@ -177,6 +229,12 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @ActivateAntiGravity.started -= instance.OnActivateAntiGravity;
             @ActivateAntiGravity.performed -= instance.OnActivateAntiGravity;
             @ActivateAntiGravity.canceled -= instance.OnActivateAntiGravity;
+            @ExitInspect.started -= instance.OnExitInspect;
+            @ExitInspect.performed -= instance.OnExitInspect;
+            @ExitInspect.canceled -= instance.OnExitInspect;
+            @RotateInpectedObject.started -= instance.OnRotateInpectedObject;
+            @RotateInpectedObject.performed -= instance.OnRotateInpectedObject;
+            @RotateInpectedObject.canceled -= instance.OnRotateInpectedObject;
         }
 
         public void RemoveCallbacks(IPlayerControlsActions instance)
@@ -198,5 +256,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     {
         void OnInteract(InputAction.CallbackContext context);
         void OnActivateAntiGravity(InputAction.CallbackContext context);
+        void OnExitInspect(InputAction.CallbackContext context);
+        void OnRotateInpectedObject(InputAction.CallbackContext context);
     }
 }
