@@ -29,6 +29,12 @@ public class ItemManager : MonoBehaviour
     {
         playerController = new PlayerController();
         layerNumber = LayerMask.NameToLayer("Inspectable");
+
+        if (holdPos.localScale != Vector3.one)
+        {
+            Debug.LogError("HoldPos must have scale (1,1,1) for proper object handling!");
+            holdPos.localScale = Vector3.one;
+        }
     }
 
     private void OnEnable()
@@ -79,7 +85,6 @@ public class ItemManager : MonoBehaviour
                 clonedHeldObj = Instantiate(pickUpObj);
                 savedObject = pickUpObj;
                 savedObject.SetActive(false);
-
             }
 
             if (clonedHeldObj.GetComponent<Rigidbody>()) //make sure the object has a RigidBody
@@ -87,7 +92,7 @@ public class ItemManager : MonoBehaviour
                 heldObj = clonedHeldObj; //assign heldObj to the object that was hit by the raycast (no longer == null)
                 heldObjRb = clonedHeldObj.GetComponent<Rigidbody>(); //assign Rigidbody
                 heldObjRb.isKinematic = true;
-                heldObjRb.transform.parent = holdPos.transform; //parent object to holdposition
+                //heldObjRb.transform.parent = holdPos.transform; //parent object to holdposition
                 heldObjRb.transform.position = Vector3.Slerp(heldObjRb.transform.position, holdPos.position, Time.deltaTime * pickUpSmooth);
                 heldObj.layer = layerNumber; //change the object layer to the holdLayer
                                              //make sure object doesnt collide with player, it can cause weird bugs
