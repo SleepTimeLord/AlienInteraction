@@ -4,11 +4,12 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-public class EngiRoomCodeBoxManager : MonoBehaviour
+public class EngiRoomCodeBoxManager : MonoBehaviour, IDataPersistance
 {
     private int[] purpleCode1 = {1, 4, 1, 5, 3, 1, 4, 2};
     private int[] purpleCode2 = {3, 1, 4, 2, 1, 4, 1, 5};
     private List<int> inputtedCode = new List<int>();
+    private bool engineRoomPuzzle1Done = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -39,11 +40,12 @@ public class EngiRoomCodeBoxManager : MonoBehaviour
     {
         if (CompletePuzzle())
         {
-            Debug.Log("go to exit");
+            engineRoomPuzzle1Done = true;
         }
         else 
         {
             PressedReset();
+            engineRoomPuzzle1Done = false;
             Debug.Log("reset and make sound");
         }
     }
@@ -52,5 +54,15 @@ public class EngiRoomCodeBoxManager : MonoBehaviour
     {
         inputtedCode.Clear();
         Debug.Log(inputtedCode.Count);
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.engineRoomPuzzle1Done = data.engineRoomPuzzle1Done;
+    }
+
+    public void SaveData(ref GameData data) 
+    {
+        data.engineRoomPuzzle1Done = this.engineRoomPuzzle1Done;
     }
 }
