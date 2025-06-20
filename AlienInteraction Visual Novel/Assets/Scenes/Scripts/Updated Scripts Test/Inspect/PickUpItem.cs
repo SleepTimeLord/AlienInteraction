@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class PickUpItem : MonoBehaviour, IInteractionable
 {
-    public GameObject correspondingHoldable;
+
     private ItemManager itemManager;
+    public bool canRotate;
+    public bool faceForward;
+    public GameObject frontOfObject;
 
     private void Start()
     {
