@@ -15,7 +15,7 @@ public class PickUpItem : MonoBehaviour, IInteractionable
     {
         if (itemManager != null)
         {
-            if (itemManager.pickedUpObject == null)
+            if (itemManager.heldObj == null)
             {
                 itemManager.pickedUpObject = transform.gameObject;
             }
