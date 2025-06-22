@@ -32,7 +32,7 @@ public class StopMovement : MonoBehaviour
             if (!itemManager.isInPickUpMode)
             {
                 playerMovement.StartPlayerMovement();
-                antiGravity.GravitySwitch();
+                antiGravity.ApplyAntiGravity();
                 playerFPHeadMovement.enabled = true;
                 playerHeadBob.enabled = true;
             }
