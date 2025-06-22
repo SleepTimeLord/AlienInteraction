@@ -42,7 +42,7 @@ public class AntiGravity : MonoBehaviour
     {
         // Determine target rotation (roll 180° around Z when flipped)
         Quaternion target = gravitySwitch
-            ? Quaternion.Euler(0f, 0f, 180f)
+            ? Quaternion.Euler(180f, 0f, 0f)
             : Quaternion.Euler(0f, 0f, 0f);
 
         // Smoothly rotate player and helper
