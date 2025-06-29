@@ -56,6 +56,17 @@
                 },
                 {
                     "name": "",
+                    "id": "4d826636-5f3a-4568-b4c9-bfe96789050b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e2fcea8a-2649-4d26-9bbc-2f88c58488ca",
                     "path": "<Keyboard>/q",
                     "interactions": "",

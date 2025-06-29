@@ -13,13 +13,18 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private Vector3 movementInput;
     public bool isOnGround;
+    private DataPersistanceManager persistanceManager;
 
     private Vector3 startingPosition;
     private void Start()
-    {
+    {   
+        persistanceManager = FindAnyObjectByType<DataPersistanceManager>();
         itemManager = FindAnyObjectByType<ItemManager>();
         antiGravity = FindAnyObjectByType<AntiGravity>();
         //isSleeping = FindObjectOfType<SleepReset>();
+        persistanceManager.ResetGame();
+        Debug.Log("this is where the game can get reset at");
+
         rb = GetComponent<Rigidbody>();
 
         startingPosition = playerPosition.position;

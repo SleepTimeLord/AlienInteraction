@@ -4,48 +4,39 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-public class EngiRoomCodeBoxManager : MonoBehaviour, IDataPersistance
+public abstract class EngiRoomCodeBoxManager : MonoBehaviour, IDataPersistance
 {
-    private int[] purpleCode1 = {1, 4, 1, 5, 3, 1, 4, 2};
-    private int[] purpleCode2 = {3, 1, 4, 2, 1, 4, 1, 5};
+    public abstract bool PuzzleDone { get; set; }
+    protected abstract int[] code1 { get; }
+    protected abstract int[] code2 { get; }
     private List<int> inputtedCode = new List<int>();
-    private bool engineRoomPuzzle1Done = false;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+/*    private bool engineRoomPuzzleDone = false;
+*/    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
     }
-    private bool CompletePuzzle()
+    public bool CompletePuzzle()
     {
         int[] enteredCode = inputtedCode.ToArray();
-        if (enteredCode.SequenceEqual(purpleCode1) || enteredCode.SequenceEqual(purpleCode2))
-        {
-            Debug.Log("code is right");
-            return true;
-        }
-        else
-        {
-            Debug.Log("code is wrong");
-            return false;
-        }
+        return enteredCode.SequenceEqual(code1) || enteredCode.SequenceEqual(code2);
     }
 
     public void InputtedCode(int codeInputted)
     {
         inputtedCode.Add(codeInputted);
-        Debug.Log(codeInputted);
     }
 
-    public void PressedEnter()
+    public virtual void PressedEnter()
     {
         if (CompletePuzzle())
         {
-            engineRoomPuzzle1Done = true;
+            PuzzleDone = true;
+            print("the puzzle is done");
         }
         else 
         {
             PressedReset();
-            engineRoomPuzzle1Done = false;
+            PuzzleDone = false;
             Debug.Log("reset and make sound");
         }
     }
@@ -56,13 +47,19 @@ public class EngiRoomCodeBoxManager : MonoBehaviour, IDataPersistance
         Debug.Log(inputtedCode.Count);
     }
 
-    public void LoadData(GameData data)
+    public virtual void LoadData(GameData data)
     {
-        this.engineRoomPuzzle1Done = data.engineRoomPuzzle1Done;
+        PuzzleDone = GetPuzzleFromGameData(data);
+
     }
 
-    public void SaveData(ref GameData data) 
+    public virtual void SaveData(ref GameData data)
     {
-        data.engineRoomPuzzle1Done = this.engineRoomPuzzle1Done;
+/*        data.engineRoomPuzzle1Done = this.engineRoomPuzzleDone;*/
+
+        SetPuzzleDoneInData(ref data, PuzzleDone);
     }
+
+    protected abstract bool GetPuzzleFromGameData(GameData data);
+    protected abstract void SetPuzzleDoneInData(ref GameData data, bool value);
 }

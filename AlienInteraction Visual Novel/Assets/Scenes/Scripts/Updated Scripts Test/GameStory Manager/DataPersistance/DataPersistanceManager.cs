@@ -43,6 +43,28 @@ public class DataPersistanceManager : MonoBehaviour
         this.gameData = new GameData();
     }
 
+    public void ResetGame()
+    {
+        // Start a new GameData object
+        this.gameData = new GameData();
+
+        // Overwrite any existing save file with the new (empty) data
+        dataHandler.Save(this.gameData);
+
+        // Push this new data to all other scripts (so they reset as well)
+        foreach (IDataPersistance dataPersistanceObj in dataPersistanceObjects)
+        {
+            dataPersistanceObj.LoadData(gameData);
+        }
+
+        Debug.Log("Game data has been reset.");
+    }
+
+    public GameData GetGameData()
+    {
+        return this.gameData;
+    }
+
     public void LoadGame()
     {
         // Load any saved data from a file using the data handler

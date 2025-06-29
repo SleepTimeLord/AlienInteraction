@@ -4,21 +4,16 @@ using UnityEngine.InputSystem;
 
 public class AntiGravity : MonoBehaviour
 {
+    PlayerController playerController;
+
+    public bool gravitySwitch = false;
     public Transform turnCamUpsidedown;
     public GameObject player;
-    public float smooth = 5f;
-
-    private PlayerController playerController;
     private PlayerMovement playerMovement;
-    private bool gravitySwitch = false;
-    private CinemachineBrain cineBrain;
 
-    void Awake()
-    {
-        cineBrain = Camera.main.GetComponent<CinemachineBrain>();
-    }
+    private float smooth = 5f;
 
-    void OnEnable()
+    private void OnEnable()
     {
         playerMovement = FindAnyObjectByType<PlayerMovement>();
         playerController = new PlayerController();
@@ -26,41 +21,33 @@ public class AntiGravity : MonoBehaviour
         playerController.Enable();
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         playerController.PlayerControls.ActivateAntiGravity.started -= ToggleAntiGravity;
         playerController.Disable();
     }
 
-    void LateUpdate()
+    public void GravitySwitch()
     {
-        // Drive the flip logic every frame
-        ApplyAntiGravity();
+        if (gravitySwitch)
+        {
+            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, Quaternion.Euler(180f, 0f, 0f), Time.deltaTime * smooth);
+            Physics.gravity = new Vector3(0f, 9.8f, 0f);
+            turnCamUpsidedown.rotation = Quaternion.Slerp(turnCamUpsidedown.rotation, Quaternion.Euler(180f, 0f, 0f), Time.deltaTime * smooth);
+        }
+        else
+        {
+            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, Quaternion.Euler(0f, 0f, 0f), Time.deltaTime * smooth);
+            Physics.gravity = new Vector3(0f, -9.8f, 0f);
+            turnCamUpsidedown.rotation = Quaternion.Slerp(turnCamUpsidedown.rotation, Quaternion.Euler(0f, 0f, 0f), Time.deltaTime * smooth);
+        }
     }
 
-    public void ApplyAntiGravity()
-    {
-        // Determine target rotation (roll 180° around Z when flipped)
-        Quaternion target = gravitySwitch
-            ? Quaternion.Euler(180f, 0f, 0f)
-            : Quaternion.Euler(0f, 0f, 0f);
-
-        // Smoothly rotate player and helper
-        player.transform.rotation = Quaternion.Slerp(player.transform.rotation, target, Time.deltaTime * smooth);
-        turnCamUpsidedown.rotation = Quaternion.Slerp(turnCamUpsidedown.rotation, target, Time.deltaTime * smooth);
-
-        // Flip gravity
-        Physics.gravity = gravitySwitch
-            ? new Vector3(0f, +9.8f, 0f)
-            : new Vector3(0f, -9.8f, 0f);
-
-        // Make sure Cinemachine reads the new up
-        cineBrain.WorldUpOverride = turnCamUpsidedown;
-    }
-
-    void ToggleAntiGravity(InputAction.CallbackContext ctx)
+    void ToggleAntiGravity(InputAction.CallbackContext context)
     {
         if (playerMovement.isOnGround)
+        {
             gravitySwitch = !gravitySwitch;
+        }
     }
 }

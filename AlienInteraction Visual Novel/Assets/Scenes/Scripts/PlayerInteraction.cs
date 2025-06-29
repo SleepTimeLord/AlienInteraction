@@ -14,6 +14,7 @@ public class PlayerInteraction : MonoBehaviour
     public GameObject hitObject;
     public float holdingTime = 0f;
     public float maxHold = 5f;
+    public LayerMask ignoredLayers;
 
     PlayerController playerController;
 
@@ -90,7 +91,7 @@ public class PlayerInteraction : MonoBehaviour
 
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, interactionRange))
+        if (Physics.Raycast(ray, out RaycastHit hit, interactionRange, ~ignoredLayers))
         {
             return hit.collider.gameObject;
         }

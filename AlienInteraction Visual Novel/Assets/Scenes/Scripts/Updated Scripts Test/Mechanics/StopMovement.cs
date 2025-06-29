@@ -32,14 +32,18 @@ public class StopMovement : MonoBehaviour
             if (!itemManager.isInPickUpMode)
             {
                 playerMovement.StartPlayerMovement();
-                antiGravity.ApplyAntiGravity();
+                antiGravity.GravitySwitch();
                 playerFPHeadMovement.enabled = true;
                 playerHeadBob.enabled = true;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
             else
             {
                 playerFPHeadMovement.enabled = false;
                 playerHeadBob.enabled = false;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
         }
     }

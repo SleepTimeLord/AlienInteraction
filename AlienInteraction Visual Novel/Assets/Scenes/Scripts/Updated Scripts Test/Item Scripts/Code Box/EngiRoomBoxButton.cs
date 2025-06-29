@@ -2,12 +2,7 @@ using UnityEngine;
 
 public enum EngiButtonType
 {
-    Code1,
-    Code2,
-    Code3,
-    Code4,
-    Code5,
-    Code6,
+    Number,
     Reset,
     Enter
 }
@@ -15,26 +10,34 @@ public enum EngiButtonType
 public class EngiRoomBoxButton : MonoBehaviour, IInteractionable
 {
     [SerializeField] private EngiButtonType buttonType;
-    private EngiRoomCodeBoxManager codeBoxManager;
+    public EngiRoomCodeBoxManager codeBoxManager;
+    public int buttonNumber;
+    private ItemManager itemManager;
 
     void Start()
     {
-        codeBoxManager = FindAnyObjectByType<EngiRoomCodeBoxManager>();
+        itemManager = FindAnyObjectByType<ItemManager>();
+    }
+
+    void Update()
+    {
+        if (codeBoxManager.PuzzleDone || !itemManager.isInPickUpMode)
+        {
+            gameObject.layer = 6;
+        }
+        else
+        {
+            gameObject.layer = 3;
+
+        }
     }
 
     public void Interact()
     {
         switch (buttonType)
         {
-            case EngiButtonType.Code1:
-            case EngiButtonType.Code2:
-            case EngiButtonType.Code3:
-            case EngiButtonType.Code4:
-            case EngiButtonType.Code5:
-            case EngiButtonType.Code6:
-                // Parse the enum name “CodeX” to extract the digit
-                int code = int.Parse(buttonType.ToString().Replace("Code", ""));
-                codeBoxManager.InputtedCode(code);
+            case EngiButtonType.Number:
+                codeBoxManager.InputtedCode(buttonNumber);
                 break;
 
             case EngiButtonType.Reset:

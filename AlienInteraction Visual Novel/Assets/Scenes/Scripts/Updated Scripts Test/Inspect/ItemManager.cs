@@ -11,9 +11,10 @@ using UnityEngine.InputSystem;
 public class ItemManager : MonoBehaviour
 {
     public GameObject player;
+    public Renderer playerRd;
     public Transform holdPos;
-
     public Camera mainCam;
+    public CinemachineBrain camBrain;
     public CinemachineCamera focusOnObject;
     private GameObject clonedHeldObj;
     private PickUpItem itemData;
@@ -46,26 +47,31 @@ public class ItemManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if (canDrop)
+        if (canDrop && !camBrain.IsBlending)
         {
             playerController.Enable();
+            playerController.PlayerControls.ExitInspect.started += DropObj;
         }
-        playerController.PlayerControls.ExitInspect.started += DropObj;
+
     }
 
     private void OnDisable()
     {
-        playerController.Disable();
-        playerController.PlayerControls.ExitInspect.started -= DropObj;
+        if (!camBrain.IsBlending)
+        {
+            playerController.Disable();
+            playerController.PlayerControls.ExitInspect.started -= DropObj;
+        }
+
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
-        if (pickedUpObject != null)
+
+        if (pickedUpObject != null && !camBrain.IsBlending)
         {
             PickUpObject(pickedUpObject);
         }
-
         if (isInPickUpMode) 
         {
             if (itemData.canRotate)
@@ -77,7 +83,6 @@ public class ItemManager : MonoBehaviour
             {
                 // make the cinemachine camera face the object
                 ZoomIntoObject();
-                Debug.Log("Currently facing forward");
             }
         }
     }
@@ -99,6 +104,7 @@ public class ItemManager : MonoBehaviour
                 itemData = clonedHeldObj.GetComponent<PickUpItem>();
                 heldObjRb = clonedHeldObj.GetComponent<Rigidbody>(); //assign Rigidbody
                 objectForwardPos = itemData.frontOfObject;
+                focusOnObject.Follow = objectForwardPos.transform;
                 heldObjRb.isKinematic = true;
                 //heldObjRb.transform.parent = holdPos.transform; //parent object to holdposition
                 // the reason we do faceForward is because the cinemachine camera is already handling the slerping towards the objects to down worry about it
@@ -133,25 +139,35 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    void ZoomIntoObject()
+/*    void ZoomIntoObject()
+    {
+
+    }
+*/
+    void DropObj(InputAction.CallbackContext context)
+    {
+        if (!camBrain.IsBlending)
+        {
+            focusOnObject.Priority = 0;
+            Destroy(heldObj);
+            pickedUpObject = null;
+            heldObj.transform.parent = null; //unparent object
+            heldObj = null; //undefine game object
+            isInPickUpMode = false;
+            savedObject.SetActive(true);
+            savedObject = null;
+        }
+
+    }
+
+    // this is because we need to wait for the actual gameobject to get to the thing
+    private void ZoomIntoObject()
     {
         if (focusOnObject != null)
         {
             // the priority of the actual camera is 2
             focusOnObject.Priority = 3;
-            focusOnObject.Follow = objectForwardPos.transform;
         }
-    }
 
-    void DropObj(InputAction.CallbackContext context)
-    {
-        Destroy(heldObj);
-        focusOnObject.Priority = 0;
-        pickedUpObject = null;
-        heldObj.transform.parent = null; //unparent object
-        heldObj = null; //undefine game object
-        isInPickUpMode = false;
-        savedObject.SetActive(true);
-        savedObject = null;
     }
 }

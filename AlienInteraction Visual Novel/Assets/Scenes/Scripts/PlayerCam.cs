@@ -19,6 +19,7 @@ public class PlayerCam : MonoBehaviour
         originalRotation = transform.rotation;
         originalOrientationRotation = orientation.rotation;
 
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
